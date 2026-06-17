@@ -10,11 +10,6 @@ output/
 sample/
 .bob/oldmcp.txt
 widget_input
-business-objects/
-business-processes/
-business-processes-old/
-business-blueprints/
-business-process/*
 templates/Localisation
 widgets/Carousel
 widgets/MultiDocumentUpload
