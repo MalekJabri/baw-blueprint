@@ -22,9 +22,13 @@
 
 ### Step 1: Clone the Repository
 ```bash
-git clone 
+git clone https://github.com/MalekJabri/baw-blueprint.git
 cd BAW_BLUEPRINT
 ```
+ or just click download zip 
+
+ ![alt text](image.png)
+
 
 
 ## Learning Objectives
