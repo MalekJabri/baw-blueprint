@@ -15,6 +15,12 @@
 - [ ] **Python 3.7+** installed
 - [ ] **Bob AI** configured with Blueprint Parser mode
 - [ ] **Business documents** (PDF, Word, Excel, etc.)
+- [ ] *Plugin installed for top**  
+    - Simple OpenAPI Viewer
+    - KIE Business Automation Bundle
+    - Markdown Preview Mermaid Support 
+
+## Lab Scenario
 
 ---
 
