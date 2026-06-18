@@ -77,17 +77,36 @@ class ConfigLoader:
         
         # Validate flows reference existing elements
         for flow in cfg.get('flows', []):
+            # Check for common field name mistakes
+            if 'source_id' in flow or 'target_id' in flow:
+                errors.append(f"❌ Flow {flow['id']} uses deprecated field names. Use 'sourceRef' and 'targetRef' instead of 'source_id' and 'target_id'")
+                continue
+            
             source = flow.get('sourceRef')
             target = flow.get('targetRef')
             
-            if source not in element_ids:
+            if not source:
+                errors.append(f"Flow {flow['id']} missing required field 'sourceRef'")
+            elif source not in element_ids:
                 errors.append(f"Flow {flow['id']} references non-existent source: {source}")
-            if target not in element_ids:
+            
+            if not target:
+                errors.append(f"Flow {flow['id']} missing required field 'targetRef'")
+            elif target not in element_ids:
                 errors.append(f"Flow {flow['id']} references non-existent target: {target}")
         
         # Validate lanes reference existing elements
         for lane in cfg.get('lanes', []):
-            for node_ref in lane.get('flowNodeRefs', []):
+            # Check for common field name mistake
+            if 'element_ids' in lane:
+                errors.append(f"❌ Lane {lane['id']} uses deprecated field name. Use 'flowNodeRefs' instead of 'element_ids'")
+                continue
+            
+            flow_node_refs = lane.get('flowNodeRefs', [])
+            if not flow_node_refs:
+                errors.append(f"⚠️  Lane {lane['id']} has no flowNodeRefs (empty lane)")
+            
+            for node_ref in flow_node_refs:
                 if node_ref not in element_ids:
                     errors.append(f"Lane {lane['id']} references non-existent element: {node_ref}")
         

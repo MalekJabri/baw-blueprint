@@ -66,8 +66,8 @@ This document defines the JSON configuration schema for BPMN process generation.
   "flows": [
     {
       "id": "string (required, unique)",
-      "source_id": "string (required, references elements.id)",
-      "target_id": "string (required, references elements.id)",
+      "sourceRef": "string (required, references elements.id)",
+      "targetRef": "string (required, references elements.id)",
       "name": "string (optional, for gateway conditions)",
       "condition": "string (optional, expression for gateways)"
     }
@@ -77,7 +77,7 @@ This document defines the JSON configuration schema for BPMN process generation.
       "id": "string (required, unique)",
       "name": "string (required)",
       "role_id": "string (required, references roles.id)",
-      "element_ids": ["string (references elements.id)"]
+      "flowNodeRefs": ["string (references elements.id)"]
     }
   ]
 }
@@ -181,23 +181,23 @@ This document defines the JSON configuration schema for BPMN process generation.
   "flows": [
     {
       "id": "flow-001",
-      "source_id": "elem-start-001",
-      "target_id": "elem-task-001"
+      "sourceRef": "elem-start-001",
+      "targetRef": "elem-task-001"
     },
     {
       "id": "flow-002",
-      "source_id": "elem-task-001",
-      "target_id": "elem-task-002"
+      "sourceRef": "elem-task-001",
+      "targetRef": "elem-task-002"
     },
     {
       "id": "flow-003",
-      "source_id": "elem-task-002",
-      "target_id": "elem-task-003"
+      "sourceRef": "elem-task-002",
+      "targetRef": "elem-task-003"
     },
     {
       "id": "flow-004",
-      "source_id": "elem-task-003",
-      "target_id": "elem-end-001"
+      "sourceRef": "elem-task-003",
+      "targetRef": "elem-end-001"
     }
   ],
   "lanes": [
@@ -205,13 +205,13 @@ This document defines the JSON configuration schema for BPMN process generation.
       "id": "lane-analyst",
       "name": "Claims Analyst",
       "role_id": "role-analyst",
-      "element_ids": ["elem-task-002"]
+      "flowNodeRefs": ["elem-task-002"]
     },
     {
       "id": "lane-manager",
       "name": "Claim Manager",
       "role_id": "role-manager",
-      "element_ids": ["elem-task-003", "elem-end-001"]
+      "flowNodeRefs": ["elem-task-003", "elem-end-001"]
     }
   ]
 }
@@ -342,42 +342,42 @@ This document defines the JSON configuration schema for BPMN process generation.
   "flows": [
     {
       "id": "flow-001",
-      "source_id": "elem-start-001",
-      "target_id": "elem-task-001"
+      "sourceRef": "elem-start-001",
+      "targetRef": "elem-task-001"
     },
     {
       "id": "flow-002",
-      "source_id": "elem-task-001",
-      "target_id": "elem-gateway-001"
+      "sourceRef": "elem-task-001",
+      "targetRef": "elem-gateway-001"
     },
     {
       "id": "flow-003",
-      "source_id": "elem-gateway-001",
-      "target_id": "elem-task-002",
+      "sourceRef": "elem-gateway-001",
+      "targetRef": "elem-task-002",
       "name": "Approved",
       "condition": "approved == true"
     },
     {
       "id": "flow-004",
-      "source_id": "elem-gateway-001",
-      "target_id": "elem-task-004",
+      "sourceRef": "elem-gateway-001",
+      "targetRef": "elem-task-004",
       "name": "Rejected",
       "condition": "approved == false"
     },
     {
       "id": "flow-005",
-      "source_id": "elem-task-002",
-      "target_id": "elem-task-003"
+      "sourceRef": "elem-task-002",
+      "targetRef": "elem-task-003"
     },
     {
       "id": "flow-006",
-      "source_id": "elem-task-003",
-      "target_id": "elem-end-001"
+      "sourceRef": "elem-task-003",
+      "targetRef": "elem-end-001"
     },
     {
       "id": "flow-007",
-      "source_id": "elem-task-004",
-      "target_id": "elem-end-002"
+      "sourceRef": "elem-task-004",
+      "targetRef": "elem-end-002"
     }
   ],
   "lanes": [
@@ -385,13 +385,13 @@ This document defines the JSON configuration schema for BPMN process generation.
       "id": "lane-officer",
       "name": "Loan Officer",
       "role_id": "role-officer",
-      "element_ids": ["elem-task-001"]
+      "flowNodeRefs": ["elem-task-001"]
     },
     {
       "id": "lane-system",
       "name": "System",
       "role_id": "role-system",
-      "element_ids": [
+      "flowNodeRefs": [
         "elem-task-002",
         "elem-task-003",
         "elem-task-004"
@@ -545,50 +545,50 @@ This document defines the JSON configuration schema for BPMN process generation.
   "flows": [
     {
       "id": "flow-001",
-      "source_id": "elem-start-001",
-      "target_id": "elem-task-001"
+      "sourceRef": "elem-start-001",
+      "targetRef": "elem-task-001"
     },
     {
       "id": "flow-002",
-      "source_id": "elem-task-001",
-      "target_id": "elem-gateway-001"
+      "sourceRef": "elem-task-001",
+      "targetRef": "elem-gateway-001"
     },
     {
       "id": "flow-003",
-      "source_id": "elem-gateway-001",
-      "target_id": "elem-task-002",
+      "sourceRef": "elem-gateway-001",
+      "targetRef": "elem-task-002",
       "name": "Path A: Inventory"
     },
     {
       "id": "flow-004",
-      "source_id": "elem-gateway-001",
-      "target_id": "elem-task-004",
+      "sourceRef": "elem-gateway-001",
+      "targetRef": "elem-task-004",
       "name": "Path B: Payment"
     },
     {
       "id": "flow-005",
-      "source_id": "elem-task-002",
-      "target_id": "elem-task-003"
+      "sourceRef": "elem-task-002",
+      "targetRef": "elem-task-003"
     },
     {
       "id": "flow-006",
-      "source_id": "elem-task-003",
-      "target_id": "elem-gateway-002"
+      "sourceRef": "elem-task-003",
+      "targetRef": "elem-gateway-002"
     },
     {
       "id": "flow-007",
-      "source_id": "elem-task-004",
-      "target_id": "elem-gateway-002"
+      "sourceRef": "elem-task-004",
+      "targetRef": "elem-gateway-002"
     },
     {
       "id": "flow-008",
-      "source_id": "elem-gateway-002",
-      "target_id": "elem-task-005"
+      "sourceRef": "elem-gateway-002",
+      "targetRef": "elem-task-005"
     },
     {
       "id": "flow-009",
-      "source_id": "elem-task-005",
-      "target_id": "elem-end-001"
+      "sourceRef": "elem-task-005",
+      "targetRef": "elem-end-001"
     }
   ],
   "lanes": [
@@ -596,19 +596,19 @@ This document defines the JSON configuration schema for BPMN process generation.
       "id": "lane-sales",
       "name": "Sales",
       "role_id": "role-sales",
-      "element_ids": ["elem-task-001"]
+      "flowNodeRefs": ["elem-task-001"]
     },
     {
       "id": "lane-warehouse",
       "name": "Warehouse",
       "role_id": "role-warehouse",
-      "element_ids": ["elem-task-002", "elem-task-003"]
+      "flowNodeRefs": ["elem-task-002", "elem-task-003"]
     },
     {
       "id": "lane-finance",
       "name": "Finance",
       "role_id": "role-finance",
-      "element_ids": ["elem-task-004", "elem-task-005"]
+      "flowNodeRefs": ["elem-task-004", "elem-task-005"]
     }
   ]
 }
@@ -772,43 +772,43 @@ This document defines the JSON configuration schema for BPMN process generation.
   "flows": [
     {
       "id": "flow-001",
-      "source_id": "elem-start-001",
-      "target_id": "elem-task-001"
+      "sourceRef": "elem-start-001",
+      "targetRef": "elem-task-001"
     },
     {
       "id": "flow-002",
-      "source_id": "elem-task-001",
-      "target_id": "elem-task-002"
+      "sourceRef": "elem-task-001",
+      "targetRef": "elem-task-002"
     },
     {
       "id": "flow-003",
-      "source_id": "elem-task-002",
-      "target_id": "elem-task-003"
+      "sourceRef": "elem-task-002",
+      "targetRef": "elem-task-003"
     },
     {
       "id": "flow-004",
-      "source_id": "elem-task-003",
-      "target_id": "elem-task-004"
+      "sourceRef": "elem-task-003",
+      "targetRef": "elem-task-004"
     },
     {
       "id": "flow-005",
-      "source_id": "elem-task-004",
-      "target_id": "elem-task-005"
+      "sourceRef": "elem-task-004",
+      "targetRef": "elem-task-005"
     },
     {
       "id": "flow-006",
-      "source_id": "elem-task-005",
-      "target_id": "elem-task-006"
+      "sourceRef": "elem-task-005",
+      "targetRef": "elem-task-006"
     },
     {
       "id": "flow-007",
-      "source_id": "elem-task-006",
-      "target_id": "elem-task-007"
+      "sourceRef": "elem-task-006",
+      "targetRef": "elem-task-007"
     },
     {
       "id": "flow-008",
-      "source_id": "elem-task-007",
-      "target_id": "elem-end-001"
+      "sourceRef": "elem-task-007",
+      "targetRef": "elem-end-001"
     }
   ],
   "lanes": [
@@ -816,25 +816,25 @@ This document defines the JSON configuration schema for BPMN process generation.
       "id": "lane-hr",
       "name": "Human Resources",
       "role_id": "role-hr",
-      "element_ids": ["elem-task-001", "elem-task-004", "elem-task-007"]
+      "flowNodeRefs": ["elem-task-001", "elem-task-004", "elem-task-007"]
     },
     {
       "id": "lane-it",
       "name": "IT Department",
       "role_id": "role-it",
-      "element_ids": ["elem-task-002"]
+      "flowNodeRefs": ["elem-task-002"]
     },
     {
       "id": "lane-facilities",
       "name": "Facilities",
       "role_id": "role-facilities",
-      "element_ids": ["elem-task-003"]
+      "flowNodeRefs": ["elem-task-003"]
     },
     {
       "id": "lane-manager",
       "name": "Department Manager",
       "role_id": "role-manager",
-      "element_ids": ["elem-task-005", "elem-task-006"]
+      "flowNodeRefs": ["elem-task-005", "elem-task-006"]
     }
   ]
 }

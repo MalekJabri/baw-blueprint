@@ -11,8 +11,5 @@ sample/
 .bob/oldmcp.txt
 widget_input
 templates/Localisation
-widgets/Carousel
-widgets/MultiDocumentUpload
 temp/
-widgets/
 analyse_twx/

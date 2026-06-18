@@ -258,7 +258,7 @@
     },
     "Advisor": {
       "classId": "/12.ab7a4b73-8c36-41db-ad9d-04c49f3351c0",
-      "description": "Financial advisor (Rådgiver) who manages customer relationships",
+      "description": "Financial advisor (R\u00e5dgiver) who manages customer relationships",
       "context": "AMLCompliance",
       "widgets": [
         "standalone"
@@ -351,6 +351,69 @@
         "InteractionList"
       ],
       "created": "2026-06-11T11:14:53.064730Z"
+    },
+    "ContactDetails": {
+      "classId": "/12.c9676a67-7f7b-4bab-ab9a-b9cde0efbcc5",
+      "description": "Contact information for a party",
+      "context": "CrossBorderPayments",
+      "widgets": [],
+      "created": "2026-06-18T05:12:58.143204Z"
+    },
+    "FXConversion": {
+      "classId": "/12.2090a785-5a10-48a7-8adb-14044293cee8",
+      "description": "Captures the exchange rate applied, rate source, and spread/margin where currency conversion occurs",
+      "context": "CrossBorderPayments",
+      "widgets": [],
+      "created": "2026-06-18T05:12:58.144773Z"
+    },
+    "ComplianceRecord": {
+      "classId": "/12.eb62017d-c77e-4656-bf8a-5cdb052ab0ae",
+      "description": "AML/CFT screening results, sanctions screening outcome, FICA verification status, and risk rating",
+      "context": "CrossBorderPayments",
+      "widgets": [],
+      "created": "2026-06-18T05:12:58.145726Z"
+    },
+    "Account": {
+      "classId": "/12.2ba53528-7a14-404f-b990-838fabc69452",
+      "description": "Account details for originator and beneficiary in cross-border payments",
+      "context": "CrossBorderPayments",
+      "widgets": [],
+      "created": "2026-06-18T05:12:58.147085Z"
+    },
+    "PaymentInstruction": {
+      "classId": "/12.e95364dc-cb26-43df-8b58-c85100168ee2",
+      "description": "Core transaction record for cross-border payment with amount, currencies, value date, purpose code, and routing",
+      "context": "CrossBorderPayments",
+      "widgets": [],
+      "created": "2026-06-18T05:12:58.148106Z"
+    },
+    "SettlementLeg": {
+      "classId": "/12.360e7d4b-cd1a-4ae4-8c3d-75025138eca3",
+      "description": "One or more ledger entries describing how funds move between institutions (nostro/vostro, RTGS, correspondent)",
+      "context": "CrossBorderPayments",
+      "widgets": [],
+      "created": "2026-06-18T05:12:58.149049Z"
+    },
+    "RegulatoryClassification": {
+      "classId": "/12.5690a406-9a63-4926-a412-9705a9370417",
+      "description": "Stores Balance of Payments category, purpose-of-payment code, and exchange control approval reference",
+      "context": "CrossBorderPayments",
+      "widgets": [],
+      "created": "2026-06-18T05:12:58.149996Z"
+    },
+    "Party": {
+      "classId": "/12.272113b0-5114-40fc-97ae-858006f21546",
+      "description": "Represents any individual or organization in a cross-border payment transaction: originator, beneficiary, ultimate beneficial owner, or intermediary",
+      "context": "CrossBorderPayments",
+      "widgets": [],
+      "created": "2026-06-18T05:12:58.150862Z"
+    },
+    "StatusEvent": {
+      "classId": "/12.ba06bb0f-7992-4e7e-8e60-acd1a3a574c3",
+      "description": "An auditable, timestamped log of the instruction's lifecycle state changes",
+      "context": "CrossBorderPayments",
+      "widgets": [],
+      "created": "2026-06-18T05:12:58.151740Z"
     }
   },
   "notes": {

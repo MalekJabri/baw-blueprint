@@ -321,6 +321,10 @@ class BPMNGenerator:
             node_elem.set('id', node['id'])
             node_elem.set('name', node['name'])
             
+            # Add gatewayDirection for gateways (required by BPMN 2.0 spec)
+            if node['type'] in ['exclusiveGateway', 'parallelGateway', 'inclusiveGateway']:
+                node_elem.set('gatewayDirection', 'Diverging')
+            
             # Add performer for user tasks
             if node['type'] == 'userTask' and node.get('performer'):
                 performer_elem = SubElement(node_elem, 'performer')
@@ -338,6 +342,7 @@ class BPMNGenerator:
         """
         Add BPMN Diagram Interchange (DI) elements for visual layout
         This creates a proper flow-based layout that follows the process sequence
+        with consistent lane widths calculated from total activities
         """
         # Create BPMNDiagram element
         diagram = SubElement(definitions, '{http://www.omg.org/spec/BPMN/20100524/DI}BPMNDiagram')
@@ -349,12 +354,23 @@ class BPMNGenerator:
         plane.set('bpmnElement', self.process_id)
         
         # Calculate positions based on flow topology
-        node_positions = self._calculate_node_positions()
+        node_positions, max_level = self._calculate_node_positions()
         
-        # Add lane shapes first
+        # Calculate consistent lane width based on total flow levels
+        # Each level needs space for activities, plus margins
+        x_spacing = 180  # Space between activity levels
+        x_start = 150    # Left margin
+        x_end_margin = 100  # Right margin
+        
+        # Calculate total width needed: start margin + (levels * spacing) + end margin
+        lane_width = x_start + (max_level * x_spacing) + x_end_margin + 120  # +120 for last activity width
+        
+        # Ensure minimum width for readability
+        lane_width = max(lane_width, 1200)
+        
+        # Add lane shapes with consistent calculated width
         lane_y = 80
         lane_height = 200
-        lane_width = 1400
         
         for lane in self.lanes:
             lane_shape = SubElement(plane, '{http://www.omg.org/spec/BPMN/20100524/DI}BPMNShape')
@@ -436,10 +452,13 @@ class BPMNGenerator:
             waypoint2.set('x', str(target_x))
             waypoint2.set('y', str(target_y))
     
-    def _calculate_node_positions(self) -> dict:
+    def _calculate_node_positions(self) -> Tuple[dict, int]:
         """
         Calculate positions for all nodes based on process flow topology
         Uses a level-based layout algorithm
+        
+        Returns:
+            Tuple of (positions dict, max_level int)
         """
         positions = {}
         
@@ -461,6 +480,7 @@ class BPMNGenerator:
         levels = {}
         queue = [(node_id, 0) for node_id in start_nodes]
         visited = set()
+        max_level = 0
         
         while queue:
             node_id, level = queue.pop(0)
@@ -468,6 +488,7 @@ class BPMNGenerator:
                 continue
             visited.add(node_id)
             levels[node_id] = max(levels.get(node_id, 0), level)
+            max_level = max(max_level, levels[node_id])
             
             for neighbor in graph.get(node_id, []):
                 queue.append((neighbor, level + 1))
@@ -542,7 +563,7 @@ class BPMNGenerator:
             
             positions[node_id] = {'x': x_pos, 'y': y_pos}
         
-        return positions
+        return positions, max_level
     
     def save_to_file(self, filename: str):
         """
